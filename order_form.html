@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ご注文フォーム｜オーダーメイドLINEスタンプ Ahaha*</title>
+<!-- ============================================================
+  ▼▼ メール送信の設定（FormSubmit・登録不要・設定済み）▼▼
+  送信先： ahahakoubou48@gmail.com  ← 注文がこのアドレスに届きます
+  ・初回だけ：ネット上に公開した後、テスト送信を1回すると
+    FormSubmit から ahahakoubou48@gmail.com に「Activate」確認メールが届きます。
+    そのボタンを1回押せば、以降すべての注文がメールで届きます。
+  ・送信先を変えたい場合は、下の <form action="https://formsubmit.co/●●●">
+    の ●●● を別アドレスに変更してください。
+  ・（任意）メールにメアドを晒したくない場合は、Activate後に発行される
+    ハッシュURL（https://formsubmit.co/xxxxxxxx）に差し替え可。
+============================================================= -->
+<style>
+  :root{--brand:#06C755;--ink:#1d2530;--sub:#5d6675;--bg:#f5f8f5;--card:#fff;--line:#dfe7df;--accent:#eafaf0;--gold:#c9a227;--req:#e2543b;}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;}
+  html{-webkit-text-size-adjust:100%;}
+  body{background:var(--bg);color:var(--ink);line-height:1.7;padding:0 0 40px;}
+  .wrap{max-width:620px;margin:0 auto;background:var(--card);}
+  .head{background:linear-gradient(135deg,#06C755,#04a948);color:#fff;padding:clamp(24px,6vw,34px) clamp(16px,5vw,26px);text-align:center;}
+  .head h1{font-size:clamp(19px,5vw,23px);}
+  .head p{font-size:clamp(12.5px,3.4vw,14px);opacity:.95;margin-top:8px;}
+  form{padding:clamp(18px,5vw,28px) clamp(16px,5vw,26px);}
+  .fld{margin-bottom:22px;}
+  label.q{display:block;font-weight:800;font-size:15px;margin-bottom:8px;}
+  label.q .req{color:#fff;background:var(--req);font-size:10.5px;font-weight:800;padding:2px 7px;border-radius:4px;margin-left:8px;vertical-align:middle;}
+  label.q .opt{color:var(--sub);background:#eef1ee;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:4px;margin-left:8px;vertical-align:middle;}
+  .hint{font-size:12px;color:var(--sub);margin:-2px 0 8px;}
+  input[type=text],input[type=email],textarea,select{
+    width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;
+    font-size:16px;background:#fbfdfb;color:var(--ink);   /* 16pxでスマホのズームを防ぐ */
+  }
+  textarea{min-height:96px;resize:vertical;}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(6,199,85,.12);}
+  .choices{display:flex;flex-direction:column;gap:9px;}
+  .choice{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer;background:#fbfdfb;transition:.12s;}
+  .choice:hover{border-color:var(--brand);background:var(--accent);}
+  .choice input{margin-top:3px;flex:none;width:18px;height:18px;accent-color:var(--brand);}
+  .choice .t{font-size:14.5px;font-weight:700;}
+  .choice .t small{display:block;font-weight:400;color:var(--sub);font-size:12.5px;}
+  .agree{background:var(--accent);border:1px solid #cfeede;border-radius:10px;padding:14px;font-size:13px;}
+  .agree label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;}
+  .agree input{margin-top:3px;width:18px;height:18px;accent-color:var(--brand);flex:none;}
+  .submit{width:100%;background:var(--gold);color:#fff;font-weight:800;font-size:17px;border:none;border-radius:999px;padding:16px;cursor:pointer;box-shadow:0 6px 16px rgba(201,162,39,.4);margin-top:6px;}
+  .submit:active{transform:translateY(1px);}
+  .flow{background:#f4f7f4;border-radius:10px;padding:14px 16px;font-size:12.5px;color:var(--sub);margin-bottom:22px;}
+  .flow b{color:var(--ink);}
+  .back{display:inline-block;margin:14px 0 0;font-size:13px;color:var(--brand);text-decoration:none;}
+  footer{text-align:center;color:var(--sub);font-size:11.5px;padding:18px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>ご注文フォーム 🐾</h1>
+    <p>オーダーメイドLINEスタンプ ／ Ahaha*</p>
+  </div>
+
+  <!-- action を Formspree のエンドポイントURLに差し替えてください -->
+  <form action="https://formsubmit.co/ahahakoubou48@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="【新規注文】オーダーメイドLINEスタンプ Ahaha*">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_autoresponse" value="ご注文ありがとうございます！内容を確認のうえ、Ahaha*より折り返しご連絡いたします。（このメールは自動返信です）">
+    <!-- スパム避けハニーポット（人間には見えない・ボット除け） -->
+    <input type="text" name="_honey" style="display:none">
+    <!-- ▼公開後にthanksページを作る場合は _next を有効化（フルURLで指定）
+    <input type="hidden" name="_next" value="https://あなたのサイト/thanks.html"> -->
+
+    <div class="flow">
+      <b>ご注文の流れ：</b> ①このフォーム送信 → ②こちらから確認・お支払いのご案内 → ③写真・ご要望を送付 → ④制作（最短3日）→ ⑤確認・納品
+    </div>
+
+    <!-- お名前 -->
+    <div class="fld">
+      <label class="q">お名前（ニックネーム可）<span class="req">必須</span></label>
+      <input type="text" name="お名前" required placeholder="例：あはは 太郎 / ニックネーム">
+    </div>
+
+    <!-- 連絡先 -->
+    <div class="fld">
+      <label class="q">ご連絡先メールアドレス<span class="req">必須</span></label>
+      <p class="hint">確認・お支払い案内・納品のご連絡に使います。</p>
+      <input type="email" name="_replyto" required placeholder="例：your@example.com">
+    </div>
+
+    <!-- 連絡用LINE等（任意） -->
+    <div class="fld">
+      <label class="q">LINE ID / SNS など<span class="opt">任意</span></label>
+      <p class="hint">写真のやり取りをLINE等で希望される方はご記入ください。</p>
+      <input type="text" name="LINE_SNS" placeholder="例：LINE ID / X(@〜) など">
+    </div>
+
+    <!-- プラン -->
+    <div class="fld">
+      <label class="q">ご希望プラン<span class="req">必須</span></label>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="ご希望プラン" value="お試し 8個 ¥3,000" required><span class="t">お試し（8個）¥3,000〜<small>まずは試したい方に</small></span></label>
+        <label class="choice"><input type="radio" name="ご希望プラン" value="ミニ 16個 ¥5,500"><span class="t">ミニ（16個）¥5,500〜<small>ちょうどいい数・修正1回込み</small></span></label>
+        <label class="choice"><input type="radio" name="ご希望プラン" value="スタンダード 24個 ¥8,000"><span class="t">スタンダード（24個）¥8,000〜<small>写真1枚から・修正1回込み</small></span></label>
+        <label class="choice"><input type="radio" name="ご希望プラン" value="プレミアム 32個 ¥10,800"><span class="t">プレミアム（32個）¥10,800〜 ★人気<small>表情バリエ豊富・修正2回込み</small></span></label>
+        <label class="choice"><input type="radio" name="ご希望プラン" value="たっぷり 40個 ¥12,800"><span class="t">たっぷり（40個）¥12,800〜<small>フルラインナップ・1個あたり最安</small></span></label>
+        <label class="choice"><input type="radio" name="ご希望プラン" value="未定・相談したい"><span class="t">まだ決めていない／相談したい</span></label>
+      </div>
+    </div>
+
+    <!-- キャラクター -->
+    <div class="fld">
+      <label class="q">スタンプにするキャラクター<span class="req">必須</span></label>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="キャラクター" value="ペット" required><span class="t">うちのペット（犬・猫など）</span></label>
+        <label class="choice"><input type="radio" name="キャラクター" value="自分・人物"><span class="t">自分・家族など人物の写真</span></label>
+        <label class="choice"><input type="radio" name="キャラクター" value="自作イラスト・推し"><span class="t">自作イラスト・オリジナルキャラ</span></label>
+      </div>
+      <p class="hint">※有名キャラ・芸能人など、第三者の著作物/肖像はお受けできません。</p>
+    </div>
+
+    <!-- セリフ希望 -->
+    <div class="fld">
+      <label class="q">入れたいセリフのご希望<span class="opt">任意</span></label>
+      <p class="hint">使いたい言葉があれば（例：ありがとう／了解です／おつかれさま…）。「おまかせ」でもOK。</p>
+      <textarea name="セリフのご希望" placeholder="例：ありがとうございます / 了解しました / おはよう …（おまかせ可）"></textarea>
+    </div>
+
+    <!-- 表情・トーン -->
+    <div class="fld">
+      <label class="q">雰囲気・表情のご希望<span class="opt">任意</span></label>
+      <input type="text" name="雰囲気・表情" placeholder="例：かわいい系 / 元気系 / 敬語の落ち着いた感じ">
+    </div>
+
+    <!-- 納期 -->
+    <div class="fld">
+      <label class="q">ご希望の納期<span class="opt">任意</span></label>
+      <select name="納期">
+        <option value="通常（最短3日〜）">通常（最短3日〜）</option>
+        <option value="特急：2日以内仕上げ（+¥5,000）">特急：2日以内仕上げ（+¥5,000）</option>
+      </select>
+    </div>
+
+    <!-- オプション -->
+    <div class="fld">
+      <label class="q">オプション<span class="opt">任意・複数可</span></label>
+      <div class="choices">
+        <label class="choice"><input type="checkbox" name="オプション_2キャラコラボ" value="2キャラコラボデザインを希望（+¥3,000）"><span class="t">2キャラのコラボデザイン（+¥3,000）<small>2匹・2人を一緒に描く</small></span></label>
+        <label class="choice"><input type="checkbox" name="オプション_おまかせ登録申請" value="おまかせ登録申請（Ahaha*名義）を希望（+¥2,000）"><span class="t">おまかせ登録申請（Ahaha*名義）＋¥2,000<small>制作〜LINE申請〜審査通過までお任せ</small></span></label>
+      </div>
+      <p class="hint">※2日以内の特急仕上げ（+¥5,000）をご希望の場合は、上の「ご希望の納期」で選択してください。</p>
+      <div class="agree" style="margin-top:10px;">
+        <b style="font-size:13px;">📮 おまかせ登録申請（Ahaha*名義 ＋¥2,000）の注意点</b>
+        <p style="font-size:12.5px;color:var(--sub);margin-top:6px;line-height:1.7;">
+          ・申請は当方クリエイター名義<b>「Ahaha*」（実績26作品・審査通過率100%）</b>で行います。<br>
+          ・そのため<b>LINEストア販売による売上金はご依頼者様にはお渡しできません</b>。予めご了承ください。<br>
+          ・<b>ご自身の名義で販売・売上受取を希望</b>の方は本オプションを付けず、<b>納品データでご自身で申請</b>ください。<br>
+          ・審査を行うのはLINE社のため<b>合否は保証できません</b>。<b>審査期間は納期に含みません</b>。<br>
+          ・対象：申請が不安な方／自分専用に友達と使いたい方／ラクに完成させたい方。
+        </p>
+      </div>
+    </div>
+
+    <!-- 備考 -->
+    <div class="fld">
+      <label class="q">ご要望・ご質問<span class="opt">任意</span></label>
+      <textarea name="ご要望・備考" placeholder="その他ご要望・ご不明点があればご記入ください。"></textarea>
+    </div>
+
+    <!-- 同意 -->
+    <div class="fld">
+      <div class="agree">
+        <label>
+          <input type="checkbox" name="同意" value="同意済み" required>
+          <span>著作権・肖像権のある第三者の素材は使用しないこと、デジタル制作物のため制作開始後のキャンセル・返金はできないこと、LINE審査により表現を調整する場合があること、（おまかせ登録申請をご利用の場合）申請はAhaha*名義で行い<b>販売による売上金はお渡しできない</b>こと・審査の合否はLINE社の判断で保証されないことに同意します。<b>（必須）</b></span>
+        </label>
+      </div>
+    </div>
+
+    <button type="submit" class="submit">この内容で注文する</button>
+    <a class="back" href="order_site_LP.html">← サービス内容のページに戻る</a>
+  </form>
+
+  <footer>オーダーメイドLINEスタンプ制作 ／ Ahaha* ／ © 2026 Ahaha*</footer>
+</div>
+</body>
+</html>

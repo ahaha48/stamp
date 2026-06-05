@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>オーダーメイドLINEスタンプ作成｜あなたの推し・ペットがスタンプに</title>
+<!-- ▼▼ ここを差し替え：注文先URL（BASE商品URL or GoogleフォームURL or 公式LINE） ▼▼ -->
+<!-- 下の方の「注文する」ボタン href="#ORDER" をすべてその URL に置換してください -->
+<style>
+  :root{--brand:#06C755;--ink:#1d2530;--sub:#5d6675;--bg:#f5f8f5;--card:#fff;--line:#e6ece6;--accent:#eafaf0;--gold:#c9a227;}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;}
+  html{-webkit-text-size-adjust:100%;}
+  body{background:var(--bg);color:var(--ink);line-height:1.75;overflow-wrap:break-word;word-break:normal;line-break:strict;}
+  img{max-width:100%;height:auto;}
+  .pcbr{display:inline;}            /* PCのみ改行・スマホでは無効化 */
+  .nb{display:inline-block;}        /* フレーズ単位で改行（語の途中で泣き別れさせない） */
+  .wrap{max-width:760px;margin:0 auto;background:var(--card);}
+  /* HERO */
+  .hero{background:linear-gradient(135deg,#06C755,#04a948);color:#fff;padding:clamp(28px,7vw,40px) clamp(16px,5vw,26px) clamp(26px,6vw,34px);text-align:center;}
+  .hero .badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);padding:5px 14px;border-radius:999px;font-size:clamp(11px,3vw,12.5px);font-weight:700;margin-bottom:14px;}
+  .hero h1{font-size:0;line-height:1.5;letter-spacing:.01em;}                 /* font-size:0でフレーズ間の余分な隙間を消す */
+  .hero h1 .nb{font-size:clamp(20px,5.6vw,26px);}
+  .hero h1 .y{color:#fff3b0;}
+  .hero p{margin-top:12px;font-size:0;opacity:.96;}
+  .hero p .nb{font-size:clamp(13px,3.6vw,14.5px);line-height:1.7;}
+  .hero .cover{margin:18px auto 0;max-width:520px;}
+  .hero .cover img{width:100%;border-radius:14px;display:block;box-shadow:0 8px 24px rgba(0,0,0,.18);}
+  .cta{display:inline-block;background:var(--gold);color:#fff;font-weight:800;font-size:clamp(15px,4vw,16px);padding:15px 34px;border-radius:999px;text-decoration:none;box-shadow:0 6px 16px rgba(201,162,39,.4);margin-top:18px;max-width:100%;}
+  .cta.lg{font-size:clamp(15px,4.2vw,17px);padding:16px clamp(28px,7vw,44px);}
+  /* SECTION */
+  section{padding:clamp(24px,6vw,30px) clamp(16px,5vw,26px);border-bottom:1px solid var(--line);}
+  h2.sec{font-size:clamp(18px,5vw,20px);text-align:center;margin-bottom:18px;}
+  h2.sec small{display:block;color:var(--brand);font-size:12.5px;font-weight:800;letter-spacing:.12em;margin-bottom:4px;}
+  .need li{list-style:none;background:var(--accent);border-radius:10px;padding:11px 14px;margin:8px 0;font-size:14.5px;font-weight:700;}
+  .need li::before{content:"✓ ";color:var(--brand);font-weight:900;}
+  /* GALLERY（制作サンプル） */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  @media(max-width:600px){.gallery{grid-template-columns:repeat(2,1fr);}}
+  .g-item{background:#f4f7f4;border:1px solid var(--line);border-radius:12px;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .g-item img{width:100%;height:100%;object-fit:contain;padding:6px;}
+  .g-item .ph{color:#9bb0a0;font-size:12.5px;font-weight:700;text-align:center;line-height:1.5;}
+  .g-item .ph small{font-weight:400;font-size:10.5px;}
+  /* トークプレビュー */
+  .talk{background:#8fb8e0;border-radius:14px;padding:16px 14px;max-width:340px;margin:0 auto;}
+  .talk .row{display:flex;align-items:flex-end;gap:8px;margin:10px 0;}
+  .talk .row.me{justify-content:flex-end;}
+  .talk .ava{width:34px;height:34px;border-radius:50%;background:#fff;flex:none;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:18px;}
+  .talk .ava img{width:100%;height:100%;object-fit:cover;}
+  .talk .stmp{width:96px;height:96px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.12);}
+  .talk .stmp img{width:100%;height:100%;object-fit:contain;padding:4px;}
+  .talk .stmp .ph{color:#bcbcbc;font-size:11px;text-align:center;}
+  /* PLANS */
+  .plans{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  @media(max-width:680px){.plans{grid-template-columns:1fr;}}
+  .plan{border:1px solid var(--line);border-radius:14px;padding:18px 14px;text-align:center;position:relative;}
+  .plan.reco{border:2px solid var(--gold);box-shadow:0 6px 18px rgba(201,162,39,.15);}
+  .plan .tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:11.5px;font-weight:800;padding:3px 12px;border-radius:999px;white-space:nowrap;}
+  .plan .name{font-weight:800;font-size:15px;margin-bottom:6px;}
+  .plan .price{font-size:24px;font-weight:900;color:var(--ink);}
+  .plan .price small{font-size:13px;font-weight:700;color:var(--sub);}
+  .plan .num{font-size:13px;color:var(--sub);margin:6px 0 10px;}
+  .plan ul{text-align:left;font-size:13px;padding-left:18px;}
+  .plan li{margin:3px 0;}
+  /* STEPS */
+  .steps{counter-reset:s;}
+  .step{display:flex;gap:14px;align-items:flex-start;margin:14px 0;}
+  .step .no{flex:none;width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;}
+  .step .txt b{font-size:15px;}
+  .step .txt p{font-size:13.5px;color:var(--sub);}
+  /* FAQ */
+  details{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;}
+  details summary{font-weight:700;font-size:14px;cursor:pointer;}
+  details p{font-size:13.5px;color:var(--sub);margin-top:8px;}
+  /* NOTE */
+  .note{background:#fff7e0;border:1px solid #f0dca0;border-radius:10px;padding:14px;font-size:12.5px;color:#7a5f10;}
+  footer{padding:24px 26px;text-align:center;color:var(--sub);font-size:12px;}
+  .tokushoho{font-size:11.5px;color:var(--sub);text-align:left;line-height:1.9;}
+
+  /* ===== スマホ最適化（600px以下） ===== */
+  @media(max-width:600px){
+    .pcbr{display:none;}                 /* PC用の強制改行をオフ→自然に折り返す */
+    .hero h1{letter-spacing:0;}
+    .cta,.cta.lg{display:block;width:100%;margin-left:auto;margin-right:auto;padding-left:12px;padding-right:12px;}
+    .plan{padding:18px 16px;}
+    .plan .price{font-size:22px;}
+    .step{gap:12px;margin:16px 0;}
+    .step .no{width:30px;height:30px;font-size:14px;}
+    .need li{font-size:14px;}
+    .tokushoho{line-height:2;}
+  }
+  /* ごく小さい端末（380px以下） */
+  @media(max-width:380px){
+    .hero h1{font-size:19px;}
+    section{padding-left:14px;padding-right:14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ===== HERO ===== -->
+  <div class="hero">
+    <span class="badge">LINE26作品リリース・審査通過率100%／ココナラ★5評価23件の作家「Ahaha*」が制作</span>
+    <h1>
+      <span class="nb">あなたの<span class="y">推し・ペット</span>が</span>
+      <span class="nb">毎日使える<span class="y">LINEスタンプ</span>に🐾</span>
+    </h1>
+    <p>
+      <span class="nb">写真やイラストを送るだけ。</span>
+      <span class="nb">デカ文字＋ちょこっとキャラの</span>
+      <span class="nb">“使いやすい”オリジナルスタンプを</span>
+      <span class="nb">お作りします。</span>
+    </p>
+    <!-- カバー画像を入れる場合：下のコメントを外して src を差し替え -->
+    <!-- <div class="cover"><img src="cover.png" alt="オーダーメイドLINEスタンプ"></div> -->
+    <a class="cta lg" href="#ORDER">＼ 今すぐ注文する ／</a>
+  </div>
+
+  <!-- ===== こんな方へ ===== -->
+  <section>
+    <h2 class="sec"><small>FOR YOU</small>こんな方へ</h2>
+    <ul class="need">
+      <li>うちの子（ペット）をスタンプにして毎日使いたい</li>
+      <li>推しキャラ・自分のイラストをスタンプ化したい</li>
+      <li>作り方が分からない・自分で作る時間がない</li>
+      <li>プレゼントやお店の販促に、世界に一つのスタンプが欲しい</li>
+    </ul>
+  </section>
+
+  <!-- ===== サービス内容 ===== -->
+  <section>
+    <h2 class="sec"><small>SERVICE</small>サービス内容</h2>
+    <p style="font-size:14.5px;">いただいた<b>写真・イラスト1枚</b>から、表情やセリフ違いのスタンプを制作。
+    「ありがとうございます」「了解しました」など<b>毎日使えるデカ文字セリフ入り</b>で仕上げます。
+    納品は<b>LINE申請用のPNG画像一式</b>。ご自身のアカウントで申請いただけます（申請代行オプションあり）。</p>
+  </section>
+
+  <!-- ===== 制作サンプル ===== -->
+  <!--
+   ▼▼ 画像の入れ方 ▼▼
+   1) このフォルダに作品画像を入れる（例：sample1.png 〜 sample6.png）
+   2) 各 <div class="g-item"> の中身（<span class="ph">…</span>）を
+      <img src="sample1.png" alt="制作サンプル"> に置き換える
+   3) LINE STOREのスクショや、リリース済みスタンプの画像でOK
+  -->
+  <section>
+    <h2 class="sec"><small>SAMPLE</small>こんなスタンプが作れます</h2>
+    <p style="font-size:14px;text-align:center;margin-bottom:16px;color:var(--sub);">
+      実際にLINE STOREでリリース中の作品例です🐾
+    </p>
+    <div class="gallery">
+      <div class="g-item"><img src="sample1.png" alt="制作サンプル：楽しみです"></div>
+      <div class="g-item"><img src="sample2.png" alt="制作サンプル：は〜い"></div>
+      <div class="g-item"><img src="sample3.png" alt="制作サンプル：ぺこり"></div>
+      <div class="g-item"><img src="sample4.png" alt="制作サンプル：応援しています"></div>
+      <div class="g-item"><img src="sample5.png" alt="制作サンプル：了解"></div>
+      <div class="g-item"><img src="sample6.png" alt="制作サンプル：おやすみなさい"></div>
+    </div>
+
+    <!-- トーク画面プレビュー（実際の使用イメージ＝最も刺さる） -->
+    <p style="font-size:14px;text-align:center;margin:24px 0 12px;font-weight:700;">トークではこんな感じ💬</p>
+    <div class="talk">
+      <div class="row">
+        <div class="ava"><img src="sample3.png" alt=""></div>
+        <div class="stmp"><img src="sample2.png" alt="トーク例：は〜い"></div>
+      </div>
+      <div class="row me">
+        <div class="stmp"><img src="sample1.png" alt="トーク例：楽しみです"></div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:18px;">
+      <!-- ▼ あなたのLINE STORE クリエイターページURLに差し替え -->
+      <a class="cta" href="#STORE_URL">LINE STOREで作品を見る</a>
+    </div>
+  </section>
+
+  <!-- ===== 料金プラン ===== -->
+  <section>
+    <h2 class="sec"><small>PRICE</small>料金プラン</h2>
+    <div class="plans">
+      <div class="plan">
+        <div class="name">お試し</div>
+        <div class="price">¥3,000<small>〜</small></div>
+        <div class="num">8個セット</div>
+        <ul><li>まずは試したい方に</li><li>写真1枚から</li><li>PNG納品</li></ul>
+      </div>
+      <div class="plan">
+        <div class="name">ミニ</div>
+        <div class="price">¥5,500<small>〜</small></div>
+        <div class="num">16個セット</div>
+        <ul><li>ちょうどいい数</li><li>デカ文字セリフ入り</li><li>修正1回込み</li></ul>
+      </div>
+      <div class="plan">
+        <div class="name">スタンダード</div>
+        <div class="price">¥8,000<small>〜</small></div>
+        <div class="num">24個セット</div>
+        <ul><li>写真1枚から</li><li>デカ文字セリフ入り</li><li>修正1回込み</li></ul>
+      </div>
+      <div class="plan reco">
+        <div class="tag">いちばん人気</div>
+        <div class="name">プレミアム</div>
+        <div class="price">¥10,800<small>〜</small></div>
+        <div class="num">32個セット</div>
+        <ul><li>表情バリエ豊富</li><li>セリフ相談OK</li><li>修正2回込み</li></ul>
+      </div>
+      <div class="plan">
+        <div class="name">たっぷり</div>
+        <div class="price">¥12,800<small>〜</small></div>
+        <div class="num">40個セット（最大数）<br>＝1個あたり最安</div>
+        <ul><li>フルラインナップ40個</li><li>セリフお任せ可</li><li>修正2回込み</li></ul>
+      </div>
+    </div>
+    <div style="text-align:center;"><a class="cta" href="order_form.html">このプランで注文する</a></div>
+    <p style="font-size:12px;color:var(--sub);text-align:center;margin-top:10px;">＋オプション：2日以内の特急仕上げ +¥5,000 ／ 2キャラのコラボデザイン +¥3,000 ／ おまかせ登録申請（Ahaha*名義）+¥2,000</p>
+  </section>
+
+  <!-- ===== 注文の流れ ===== -->
+  <section>
+    <h2 class="sec"><small>FLOW</small>注文の流れ</h2>
+    <div class="steps">
+      <div class="step"><div class="no">1</div><div class="txt"><b>注文＆お支払い</b><p>プランを選んでご注文ください。</p></div></div>
+      <div class="step"><div class="no">2</div><div class="txt"><b>写真・ご要望を送る</b><p>ペット/キャラの写真と、入れたいセリフの希望を送付。</p></div></div>
+      <div class="step"><div class="no">3</div><div class="txt"><b>制作（最短3日）</b><p>デカ文字スタンプに仕上げます。</p></div></div>
+      <div class="step"><div class="no">4</div><div class="txt"><b>確認・納品</b><p>PNG一式を納品。修正対応後、完成！</p></div></div>
+    </div>
+    <div style="text-align:center;"><a class="cta lg" href="#ORDER">＼ 注文をはじめる ／</a></div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section>
+    <h2 class="sec"><small>Q&A</small>よくある質問</h2>
+    <details><summary>写真はスマホのものでいいですか？</summary><p>はい、明るくピントの合った写真であればスマホ撮影でOKです。</p></details>
+    <details><summary>自分でLINEに申請できますか？</summary><p>納品するPNG一式を、ご自身のLINEクリエイターズアカウントで申請いただけます。申請代行オプションもあります。</p></details>
+    <details><summary>有名キャラや芸能人の写真は使えますか？</summary><p>著作権・肖像権の関係でお受けできません。ご自身のペット・オリジナルキャラ・ご本人の写真でお願いします。</p></details>
+    <details><summary>納期はどのくらい？</summary><p>ご入金・素材確認後、最短3日〜（プラン・混雑状況により前後します）。</p></details>
+    <details><summary>おまかせ登録申請（Ahaha*名義 ＋¥2,000）について</summary><p>制作からLINE申請・審査通過までまとめてサポートする軽量オプションです。申請は実績26作品・審査通過率100%の当方名義「Ahaha*」で行うため、<b>販売による売上金はご依頼者様にはお渡しできません</b>。自分専用に使いたい方・申請が不安な方向けです。ご自身の名義で販売し売上を受け取りたい方は、本オプションを付けず納品データでご自身で申請ください。詳しくは下の「ご注意」をご覧ください。</p></details>
+  </section>
+
+  <!-- ===== 注文ボタン（アンカー） ===== -->
+  <section id="ORDER" style="text-align:center;background:var(--accent);">
+    <h2 class="sec"><small>ORDER</small>ご注文はこちら</h2>
+    <p style="font-size:0;margin-bottom:8px;">
+      <span class="nb" style="font-size:14px">下のボタンから注文フォーム／ショップへ。</span>
+      <span class="nb" style="font-size:14px">ご不明点はお気軽にメッセージください。</span>
+    </p>
+    <a class="cta lg" href="order_form.html">＼ 注文フォームへ進む ／</a>
+  </section>
+
+  <!-- ===== 注意・特商法 ===== -->
+  <section>
+    <div class="note">
+      ⚖️ <b>ご注意</b>：他者の著作物・有名キャラ・芸能人の写真はお受けできません。LINEの審査基準により、内容によっては表現を調整させていただく場合があります。デジタル制作物のため、制作開始後のキャンセル・返金はお受けできません。
+    </div>
+    <div class="note" style="margin-top:12px;">
+      📮 <b>おまかせ登録申請（Ahaha*名義）＋¥2,000 について</b><br>
+      ・本オプションでは、LINEへの申請を<b>当方クリエイター名義「Ahaha*」</b>（実績26作品・審査通過率100%）で行います。<br>
+      ・そのため、<b>LINEストア販売による売上金（クリエイター報酬）はご依頼者様にはお渡しできません</b>。予めご了承ください。<br>
+      ・<b>ご自身の名義で販売し売上を受け取りたい方</b>は、本オプションを付けず、<b>納品データを元にご自身のアカウントで申請</b>してください。<br>
+      ・審査を行うのはLINE社のため<b>合否は保証できません</b>（実績はありますが最終判断はLINE社）。<b>審査期間は納期に含みません</b>。<br>
+      ・対象：アカウント作成や申請が不安な方／自分専用に友達と使いたい方／ラクに完成させたい方。
+    </div>
+    <div class="tokushoho" style="margin-top:14px;">
+      <b>特定商取引法に基づく表記</b><br>
+      販売者：Ahaha*（運営者氏名は請求があれば遅滞なく開示します）／ 所在地・連絡先：お問い合わせ時に遅滞なく開示します ／
+      販売価格：各プランに記載 ／ 支払方法：（BASE等の決済）／ 引渡時期：入金・素材確認後 最短3日〜 ／
+      返品・キャンセル：デジタル制作物のため制作開始後不可。
+    </div>
+  </section>
+
+  <footer>オーダーメイドLINEスタンプ制作 ／ <b>Ahaha*</b><br>© 2026 Ahaha*</footer>
+</div>
+</body>
+</html>
